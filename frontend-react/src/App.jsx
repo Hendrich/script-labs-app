@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import LoginRegister from "./LoginRegister";
 import Dashboard from "./Dashboard";
