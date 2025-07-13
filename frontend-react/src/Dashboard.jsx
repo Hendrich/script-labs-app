@@ -153,7 +153,7 @@ function Dashboard({ token }) {
         ) : (
           books.map((book) => (
             <div className="book-card" key={book.id}>
-              <img src="public/image/pdefault-book.jpg" alt="cover" />
+              <img src="/image/default-book.jpg" alt="cover" />
               {editId === book.id ? (
                 <>
                   <input
