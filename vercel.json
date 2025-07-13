@@ -1,0 +1,12 @@
+{
+  "builds": [
+    {
+      "src": "frontend-react/vite.config.js",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "frontend-react/dist"
+      }
+    }
+  ],
+  "routes": [{ "src": "/(.*)", "dest": "/index.html" }]
+}

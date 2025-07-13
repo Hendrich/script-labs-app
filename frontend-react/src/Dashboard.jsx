@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+import { apiUrl } from "./main";
 
 function Dashboard({ token }) {
   const [books, setBooks] = useState([]);
@@ -17,7 +15,7 @@ function Dashboard({ token }) {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`${API_BASE_URL}/api/books`, {
+      const res = await fetch(`${apiUrl}/api/books`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -40,7 +38,7 @@ function Dashboard({ token }) {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`${API_BASE_URL}/api/books`, {
+      const res = await fetch(`${apiUrl}/api/books`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -65,7 +63,7 @@ function Dashboard({ token }) {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`${API_BASE_URL}/api/books/${id}`, {
+      const res = await fetch(`${apiUrl}/api/books/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -90,7 +88,7 @@ function Dashboard({ token }) {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`${API_BASE_URL}/api/books/${editId}`, {
+      const res = await fetch(`${apiUrl}/api/books/${editId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
