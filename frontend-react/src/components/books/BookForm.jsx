@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 const BookForm = ({ onSubmit, loading }) => {
 	const [title, setTitle] = useState('');
 	const [author, setAuthor] = useState('');
+	const titleInputRef = useRef(null);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -11,6 +12,13 @@ const BookForm = ({ onSubmit, loading }) => {
 		onSubmit({ title: title.trim(), author: author.trim() });
 		setTitle('');
 		setAuthor('');
+
+		// Focus on title input for next entry
+		setTimeout(() => {
+			if (titleInputRef.current) {
+				titleInputRef.current.focus();
+			}
+		}, 100);
 	};
 
 	return (
@@ -22,6 +30,7 @@ const BookForm = ({ onSubmit, loading }) => {
 						<label htmlFor="title">Book Title</label>
 						<input
 							id="title"
+							ref={titleInputRef}
 							type="text"
 							placeholder="Enter book title..."
 							value={title}
