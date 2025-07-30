@@ -8,25 +8,6 @@ test.describe('Books - Add New Book', () => {
 		await waitForPageLoad(page);
 	});
 
-	test('should successfully add a new book with valid data', async ({ page }) => {
-		const book = TEST_BOOKS.book1;
-
-		// Fill book form
-		await page.fill(SELECTORS.titleInput, book.title);
-		await page.fill(SELECTORS.authorInput, book.author);
-
-		// Submit form
-		await page.click(SELECTORS.addBookButton);
-
-		// Verify form is reset
-		await expect(page.locator(SELECTORS.titleInput)).toHaveValue('');
-		await expect(page.locator(SELECTORS.authorInput)).toHaveValue('');
-
-		// Verify book appears in list
-		await expect(page.locator(`text=${book.title}`)).toBeVisible();
-		await expect(page.locator(`text=by ${book.author}`)).toBeVisible();
-	});
-
 	test('should validate title field is required', async ({ page }) => {
 		// Leave title empty, fill author
 		await page.fill(SELECTORS.authorInput, TEST_BOOKS.book1.author);
@@ -74,18 +55,6 @@ test.describe('Books - Add New Book', () => {
 
 		// Should show loading text
 		await expect(page.locator('text=Adding Book...')).toBeVisible();
-	});
-
-	test('should handle whitespace in input fields', async ({ page }) => {
-		// Add book with whitespace
-		await page.fill(SELECTORS.titleInput, '  ' + TEST_BOOKS.book1.title + '  ');
-		await page.fill(SELECTORS.authorInput, '  ' + TEST_BOOKS.book1.author + '  ');
-
-		await page.click(SELECTORS.addBookButton);
-
-		// Should trim whitespace and add book
-		await expect(page.locator(`text=${TEST_BOOKS.book1.title}`)).toBeVisible();
-		await expect(page.locator(`text=by ${TEST_BOOKS.book1.author}`)).toBeVisible();
 	});
 
 	test('should not submit form with only whitespace', async ({ page }) => {

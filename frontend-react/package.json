@@ -6,7 +6,7 @@
 		"dev": "vite",
 		"build": "vite build",
 		"preview": "vite preview",
-		"test": "playwright test --config=playwright-passed-only.config.js --project=chromium",
+		"test": "playwright test --project=chromium",
 		"test:headed": "playwright test --headed",
 		"test:ui": "playwright test --ui",
 		"test:report": "playwright show-report"
