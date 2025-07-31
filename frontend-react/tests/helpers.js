@@ -1,5 +1,5 @@
 // Test constants and helper functions
-import { expect } from '@playwright/test';
+import { expect } from "@playwright/test";
 export const TEST_CREDENTIALS = {
   email: "dhanjoenkp@gmail.com",
   password: "qweqwe",

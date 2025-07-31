@@ -25,3 +25,7 @@ Thumbs.db
 
 # Image cache
 frontend-react/image/*.tmp
+
+# Temporary files
+/frontend-react/playwright-report/
+/frontend-react/test-results/
