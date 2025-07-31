@@ -6,18 +6,35 @@ export const useBooks = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 
-	const fetchBooks = async () => {
-		try {
-			setLoading(true);
-			setError(null);
-			const response = await bookService.getAllBooks();
-			setBooks(response.data || []);
-		} catch (err) {
-			setError(err.message);
-		} finally {
-			setLoading(false);
-		}
-	};
+
+	   const fetchBooks = async () => {
+			   try {
+					   setLoading(true);
+					   setError(null);
+					   const response = await bookService.getAllBooks();
+					   setBooks(response.data || []);
+			   } catch (err) {
+					   setError(err.message);
+			   } finally {
+					   setLoading(false);
+			   }
+	   };
+
+	   // Search books from API
+	   const searchBooks = async (query, page = 1, limit = 10) => {
+			   try {
+					   setLoading(true);
+					   setError(null);
+					   const response = await bookService.searchBooks(query, page, limit);
+					   setBooks(response.data || []);
+					   return response;
+			   } catch (err) {
+					   setError(err.message);
+					   throw err;
+			   } finally {
+					   setLoading(false);
+			   }
+	   };
 
 	const createBook = async (bookData) => {
 		try {
@@ -66,13 +83,14 @@ export const useBooks = () => {
 		fetchBooks();
 	}, []);
 
-	return {
-		books,
-		loading,
-		error,
-		createBook,
-		updateBook,
-		deleteBook,
-		refetch: fetchBooks
-	};
+	   return {
+			   books,
+			   loading,
+			   error,
+			   createBook,
+			   updateBook,
+			   deleteBook,
+			   refetch: fetchBooks,
+			   searchBooks
+	   };
 };

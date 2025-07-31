@@ -6,12 +6,13 @@ export const API_CONFIG = {
 			LOGIN: '/api/auth/login',
 			REGISTER: '/api/auth/register'
 		},
-		BOOKS: {
-			GET_ALL: '/api/books',
-			CREATE: '/api/books',
-			UPDATE: '/api/books',
-			DELETE: '/api/books'
-		}
+	   BOOKS: {
+		   GET_ALL: '/api/books',
+		   CREATE: '/api/books',
+		   UPDATE: '/api/books',
+		   DELETE: '/api/books',
+		   SEARCH: '/api/books/search'
+	   }
 	}
 };
 

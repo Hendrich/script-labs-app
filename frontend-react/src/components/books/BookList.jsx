@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import BookCard from './BookCard.jsx';
 
-const BookList = ({ books, onEdit, onDelete, loading }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-
-  // Filter books by title or author (case-insensitive)
-  const filteredBooks = books.filter(
-	(book) =>
-	  book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-	  book.author.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+const BookList = ({ books, onEdit, onDelete, loading, searchQuery, onSearch }) => {
   if (loading) {
 	return (
 	  <div className="loading-container">
@@ -38,19 +30,19 @@ const BookList = ({ books, onEdit, onDelete, loading }) => {
 		  className="search-bar"
 		  placeholder="🔍 Search books by title or author..."
 		  value={searchQuery}
-		  onChange={(e) => setSearchQuery(e.target.value)}
+		  onChange={(e) => onSearch(e.target.value)}
 		  aria-label="Search books"
 		  autoComplete="off"
 		/>
 	  </div>
-	  {filteredBooks.length === 0 ? (
+	  {books.length === 0 ? (
 		<div className="books-empty">
 		  <h3>🔍 No books found</h3>
 		  <p>No books match your search.</p>
 		</div>
 	  ) : (
 		<div className="book-grid">
-		  {filteredBooks.map((book) => (
+		  {books.map((book) => (
 			<BookCard
 			  key={book._id || book.id}
 			  book={book}
