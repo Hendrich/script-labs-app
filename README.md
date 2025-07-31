@@ -113,11 +113,13 @@ book-catalog-app/
 ## 🎯 Penggunaan
 
 ### 1. Registrasi/Login
+
 - Buka aplikasi di browser
 - Klik "Register" untuk membuat akun baru atau "Login" jika sudah punya akun
 - Masukkan email dan password
 
 ### 2. Manajemen Buku
+
 - **Tambah Buku**: Klik tombol "Add Book" dan isi form
 - **Edit Buku**: Klik tombol edit pada kartu buku
 - **Hapus Buku**: Klik tombol delete (akan ada konfirmasi)
@@ -128,6 +130,8 @@ book-catalog-app/
 Aplikasi ini menggunakan Playwright untuk end-to-end testing:
 
 ```bash
+# install driver browser type terlebih dahulu
+npx playwright install
 # Test autentikasi
 npm test -- auth
 
