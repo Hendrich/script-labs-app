@@ -1,3 +1,28 @@
+/* Search Bar Styling */
+.search-bar-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.search-bar {
+  padding: 0.85rem 1.2rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  width: 100%;
+  max-width: 400px;
+  background: var(--background-primary);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-xs);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.search-bar:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.08);
+}
 /* ===== MODERN BOOK COMPONENTS ===== */
 .book-section {
 	max-width: 1400px;
