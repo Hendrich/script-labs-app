@@ -1,51 +1,58 @@
 import React from "react";
-import { useBooks } from "./hooks/useBooks.js";
-import BookForm from "./components/books/BookForm.jsx";
-import BookList from "./components/books/BookList.jsx";
+import { useScripts } from "./hooks/useScripts.js";
+import ScriptForm from "./components/labs/ScriptForm.jsx";
+import ScriptList from "./components/labs/ScriptList.jsx";
 import ErrorMessage from "./components/common/ErrorMessage.jsx";
 
 function Dashboard() {
-  const { books, loading, error, createBook, updateBook, deleteBook, refetch } =
-    useBooks();
+  const {
+    scripts,
+    loading,
+    error,
+    createScript,
+    updateScript,
+    deleteScript,
+    refresh,
+  } = useScripts();
 
-  const handleCreateBook = async (bookData) => {
+  const handleCreateScript = async (scriptData) => {
     try {
-      await createBook(bookData);
+      await createScript(scriptData);
     } catch (err) {
-      console.error("Failed to create book:", err);
+      console.error("Failed to create script:", err);
       // Optionally, you could set a local error state here to display a message
     }
   };
 
-  const handleUpdateBook = async (id, bookData) => {
+  const handleUpdateScript = async (id, scriptData) => {
     try {
-      await updateBook(id, bookData);
+      await updateScript(id, scriptData);
     } catch (err) {
-      console.error("Failed to update book:", err);
+      console.error("Failed to update script:", err);
       // Optionally, you could set a local error state here to display a message
     }
   };
 
-  const handleDeleteBook = async (id) => {
+  const handleDeleteScript = async (id) => {
     try {
-      await deleteBook(id);
+      await deleteScript(id);
     } catch (err) {
-      console.error("Failed to delete book:", err);
+      console.error("Failed to delete script:", err);
       // Optionally, you could set a local error state here to display a message
     }
   };
 
   return (
-    <section className="book-section">
-      <BookForm onSubmit={handleCreateBook} loading={loading} />
+    <section className="script-section">
+      <ScriptForm onSubmit={handleCreateScript} loading={loading} />
 
-      <ErrorMessage message={error} onRetry={refetch} />
+      <ErrorMessage message={error} onRetry={refresh} />
 
-      <div className="books-container">
-        <BookList
-          books={books}
-          onEdit={handleUpdateBook}
-          onDelete={handleDeleteBook}
+      <div className="scripts-container">
+        <ScriptList
+          scripts={scripts}
+          onEdit={handleUpdateScript}
+          onDelete={handleDeleteScript}
           loading={loading}
         />
       </div>

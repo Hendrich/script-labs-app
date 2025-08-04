@@ -1,8 +1,9 @@
-# E2E Testing dengan Playwright
+# E2E Testing untuk Script Labs dengan Playwright
 
 ## Setup
 
 1. Install dependencies:
+
    ```bash
    npm install
    ```
@@ -15,27 +16,32 @@
 ## Menjalankan Tests
 
 ### Semua Tests
+
 ```bash
 npm test
 ```
 
 ### Tests dengan UI Mode (Recommended untuk debugging)
+
 ```bash
 npm run test:ui
 ```
 
 ### Tests dengan browser terlihat
+
 ```bash
 npm run test:headed
 ```
 
 ### Menjalankan test spesifik
+
 ```bash
 npx playwright test auth/login.spec.js
-npx playwright test books/add-book.spec.js
+npx playwright test labs/add-script.spec.js
 ```
 
 ### Menjalankan test untuk browser spesifik
+
 ```bash
 npx playwright test --project=chromium
 npx playwright test --project=firefox
@@ -44,6 +50,7 @@ npx playwright test --project=firefox
 ## Test Report
 
 Setelah test selesai, lihat report:
+
 ```bash
 npm run test:report
 ```
@@ -56,11 +63,11 @@ tests/
 ├── auth/
 │   ├── login.spec.js               # Login functionality tests
 │   └── auth-flow.spec.js           # Authentication flow tests
-├── books/
-│   ├── add-book.spec.js            # Add book tests
-│   ├── book-list.spec.js           # Book listing tests
-│   ├── edit-book.spec.js           # Edit book tests
-│   └── delete-book.spec.js         # Delete book tests
+├── labs/
+│   ├── add-script.spec.js          # Add script tests
+│   ├── script-list.spec.js         # Script listing tests
+│   ├── edit-script.spec.js         # Edit script tests
+│   └── delete-script.spec.js       # Delete script tests
 ├── ui/
 │   ├── responsive.spec.js          # Responsive design tests
 │   └── navigation.spec.js          # Navigation & interaction tests
@@ -73,6 +80,7 @@ tests/
 ## Test Credentials
 
 Tests menggunakan kredensial static:
+
 - Email: `dhanjoenkp@gmail.com`
 - Password: `qweqwe`
 
@@ -83,6 +91,7 @@ Pastikan backend berjalan di `localhost:3000` sebelum menjalankan tests.
 ## Test Coverage
 
 ### Authentication (8 tests)
+
 - ✅ Login dengan kredensial valid
 - ✅ Error handling untuk kredensial invalid
 - ✅ Validasi form
@@ -90,27 +99,31 @@ Pastikan backend berjalan di `localhost:3000` sebelum menjalankan tests.
 - ✅ Session persistence
 - ✅ Logout functionality
 
-### Book Management (32+ tests)
-- ✅ Add new book
-- ✅ View book list
-- ✅ Edit existing book
-- ✅ Delete book with confirmation
+### Script Labs Management (32+ tests)
+
+- ✅ Add new script
+- ✅ View script list
+- ✅ Edit existing script
+- ✅ Delete script with confirmation
 - ✅ Form validation
 - ✅ Loading states
 
 ### UI/UX (12+ tests)
+
 - ✅ Responsive design (desktop, tablet, mobile)
 - ✅ Navigation consistency
 - ✅ Form interactions
 - ✅ Accessibility features
 
 ### Error Handling (16+ tests)
+
 - ✅ Form validation errors
 - ✅ Network error handling
 - ✅ Error message display
 - ✅ Error recovery
 
 ### Integration (10+ tests)
+
 - ✅ Complete user journey
 - ✅ Data consistency
 - ✅ State management
@@ -128,6 +141,7 @@ Pastikan backend berjalan di `localhost:3000` sebelum menjalankan tests.
 ## Configuration
 
 Lihat `playwright.config.js` untuk konfigurasi:
+
 - Multiple browsers (Chrome, Firefox, Safari)
 - Mobile testing (iPhone, Android)
 - Screenshot & video recording

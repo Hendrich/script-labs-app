@@ -1,14 +1,14 @@
-# 📚 Book Catalog App
+# 🧪 Script Labs
 
-> Aplikasi katalog buku modern dengan sistem autentikasi, dibangun menggunakan React + Vite
+> Platform modern untuk QA testing dan eksperimen skrip, dibangun menggunakan React + Vite
 
-![Book Catalog Demo](https://img.shields.io/badge/Status-Active-brightgreen) ![React](https://img.shields.io/badge/React-18.2.0-blue) ![Vite](https://img.shields.io/badge/Vite-4.0.0-646CFF)
+![Script Labs Demo](https://img.shields.io/badge/Status-Active-brightgreen) ![React](https://img.shields.io/badge/React-18.2.0-blue) ![Vite](https://img.shields.io/badge/Vite-4.0.0-646CFF)
 
 ## ✨ Fitur Utama
 
 - 🔐 **Sistem Autentikasi** - Login & Register yang aman
-- 📖 **Manajemen Buku** - Tambah, edit, hapus, dan lihat koleksi buku
-- 🎨 **UI/UX Modern** - Interface yang clean dan responsif
+- 🧪 **Manajemen Script Labs** - Tambah, edit, hapus, dan lihat koleksi script testing
+- 🎨 **UI/UX Modern** - Interface yang clean dan responsif dengan tema labs
 - 🚀 **Performance Optimal** - Dibangun dengan Vite untuk loading yang cepat
 - 🧪 **Testing Ready** - Dilengkapi dengan Playwright untuk end-to-end testing
 
@@ -33,8 +33,8 @@ Pastikan Anda memiliki software berikut terinstall:
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/Hendrich/book-catalog-app.git
-cd book-catalog-app
+git clone https://github.com/Hendrich/script-labs-app.git
+cd script-labs-app
 ```
 
 ### 2. Install Dependencies
@@ -92,12 +92,12 @@ npm run test:report
 ## 📁 Struktur Proyek
 
 ```
-book-catalog-app/
+script-labs-app/
 ├── frontend-react/
 │   ├── src/
 │   │   ├── components/          # Komponen React
 │   │   │   ├── auth/           # Komponen autentikasi
-│   │   │   ├── books/          # Komponen manajemen buku
+│   │   │   ├── labs/           # Komponen manajemen script labs
 │   │   │   └── common/         # Komponen umum
 │   │   ├── hooks/              # Custom React hooks
 │   │   ├── services/           # API services
@@ -118,12 +118,12 @@ book-catalog-app/
 - Klik "Register" untuk membuat akun baru atau "Login" jika sudah punya akun
 - Masukkan email dan password
 
-### 2. Manajemen Buku
+### 2. Manajemen Script Labs
 
-- **Tambah Buku**: Klik tombol "Add Book" dan isi form
-- **Edit Buku**: Klik tombol edit pada kartu buku
-- **Hapus Buku**: Klik tombol delete (akan ada konfirmasi)
-- **Lihat Detail**: Klik pada kartu buku untuk melihat detail
+- **Tambah Script**: Klik tombol "Add Script" dan isi form
+- **Edit Script**: Klik tombol edit pada kartu script
+- **Hapus Script**: Klik tombol delete (akan ada konfirmasi)
+- **Lihat Detail**: Klik pada kartu script untuk melihat detail
 
 ## 🧪 Testing
 
@@ -135,11 +135,11 @@ npx playwright install
 # Test autentikasi
 npm test -- auth
 
-# Test manajemen buku
-npm test -- books
+# Test manajemen script labs
+npm test -- labs
 
 # Test specific file
-npm test -- edit-book.spec.js
+npm test -- edit-lab.spec.js
 ```
 
 ## 🚢 Deployment
@@ -157,8 +157,8 @@ Aplikasi ini mengharapkan backend API dengan endpoints berikut:
 ```
 POST /api/auth/login          # Login user
 POST /api/auth/register       # Register user
-GET  /api/books              # Get all books
-POST /api/books              # Create new book
-PUT  /api/books/:id          # Update book
-DELETE /api/books/:id        # Delete book
+GET  /api/labs               # Get all script labs
+POST /api/labs               # Create new script lab
+PUT  /api/labs/:id           # Update script lab
+DELETE /api/labs/:id         # Delete script lab
 ```
