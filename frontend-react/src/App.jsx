@@ -2,48 +2,71 @@ import React, { useEffect } from "react";
 import "./App.css";
 import "./styles/common.css";
 import "./styles/auth.css";
-import "./styles/books.css";
+import "./styles/labs.css";
 import { useAuth } from "./hooks/AuthContext.jsx";
 import AuthContainer from "./components/auth/AuthContainer.jsx";
 import Dashboard from "./Dashboard.jsx";
 
 function App() {
-	const { user, logout } = useAuth();
+  const { user, logout } = useAuth();
 
-	// Monitor user state changes
-	useEffect(() => {
-		console.log('🔄 App: User state changed to:', user);
-	}, [user]);
+  console.log("� App component is rendering!");
+  console.log("� Current user:", user);
 
-	console.log('🚀 App render - Current user:', user);
-	console.log('🔐 Is authenticated:', !!user);
-	console.log('🗂️ localStorage token:', localStorage.getItem('token'));
-	console.log('👤 localStorage user:', localStorage.getItem('user'));
-
-	return (
-		<div className="app-wrapper">
-			<header>
-				<div className="container">
-					<h1>📚 Book Catalog</h1>
-					{user && (
-						<nav>
-							<span id="welcome-user">Hello, {user.email}</span>
-							<button className="btn secondary" onClick={logout}>
-								Logout
-							</button>
-						</nav>
-					)}
-				</div>
-			</header>
-			<main style={{ minHeight: "60vh", marginBottom: "2rem" }}>
-				{!user ? (
-					<AuthContainer />
-				) : (
-					<Dashboard />
-				)}
-			</main>
-		</div>
-	);
+  return (
+    <div
+      className="app-wrapper"
+      style={{
+        minHeight: "100vh",
+        background: "#0f172a",
+        color: "#f8fafc",
+        padding: "2rem",
+      }}
+    >
+      <header
+        style={{
+          background: "#1e293b",
+          padding: "1rem",
+          borderRadius: "8px",
+          marginBottom: "2rem",
+        }}
+      >
+        <div className="container">
+          <h1 style={{ color: "#3b82f6", fontSize: "2rem", margin: 0 }}>
+            🧪 Script Labs
+          </h1>
+          {user && (
+            <nav style={{ marginTop: "1rem" }}>
+              <span id="welcome-user">Hello, {user.email}</span>
+              <button
+                className="btn secondary"
+                onClick={logout}
+                style={{ marginLeft: "1rem" }}
+              >
+                Logout
+              </button>
+            </nav>
+          )}
+        </div>
+      </header>
+      <main className="container">
+        <div
+          style={{
+            background: "#1e293b",
+            padding: "2rem",
+            borderRadius: "12px",
+            minHeight: "400px",
+            border: "1px solid #475569",
+          }}
+        >
+          <h2 style={{ color: "#e2e8f0", marginBottom: "1rem" }}>
+            {!user ? "Please Login" : "Welcome to Dashboard"}
+          </h2>
+          {!user ? <AuthContainer /> : <Dashboard />}
+        </div>
+      </main>
+    </div>
+  );
 }
 
 export default App;

@@ -1,14 +1,16 @@
 import React from "react";
-import { useBooks } from "./hooks/useBooks.js";
-import BookForm from "./components/books/BookForm.jsx";
-import BookList from "./components/books/BookList.jsx";
+import { useScripts } from "./hooks/useScripts.js";
+import ScriptForm from "./components/labs/ScriptForm.jsx";
+import ScriptList from "./components/labs/ScriptList.jsx";
 import ErrorMessage from "./components/common/ErrorMessage.jsx";
+
+import { useState, useCallback } from "react";
 
 function Dashboard() {
   const { books, loading, error, createBook, updateBook, deleteBook, refetch } =
     useBooks();
 
-  const handleCreateBook = async (bookData) => {
+  const handleCreateScript = async (scriptData) => {
     try {
       await createBook(bookData);
     } catch (err) {
@@ -17,7 +19,7 @@ function Dashboard() {
     }
   };
 
-  const handleUpdateBook = async (id, bookData) => {
+  const handleUpdateScript = async (id, scriptData) => {
     try {
       await updateBook(id, bookData);
     } catch (err) {
@@ -26,7 +28,7 @@ function Dashboard() {
     }
   };
 
-  const handleDeleteBook = async (id) => {
+  const handleDeleteScript = async (id) => {
     try {
       await deleteBook(id);
     } catch (err) {
@@ -47,6 +49,8 @@ function Dashboard() {
           onEdit={handleUpdateBook}
           onDelete={handleDeleteBook}
           loading={loading}
+          searchQuery={searchQuery}
+          onSearch={handleSearch}
         />
       </div>
     </section>
