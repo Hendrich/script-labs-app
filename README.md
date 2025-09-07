@@ -162,3 +162,7 @@ POST /api/labs               # Create new script lab
 PUT  /api/labs/:id           # Update script lab
 DELETE /api/labs/:id         # Delete script lab
 ```
+
+### License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

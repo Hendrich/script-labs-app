@@ -65,6 +65,23 @@ function App() {
           {!user ? <AuthContainer /> : <Dashboard />}
         </div>
       </main>
+
+      {/* License Footer */}
+      <footer
+        style={{
+          marginTop: "2rem",
+          padding: "1rem",
+          background: "#1e293b",
+          borderRadius: "8px",
+          textAlign: "center",
+          fontSize: "0.95rem",
+          color: "#94a3b8",
+        }}
+      >
+        <div>
+          <strong>MIT License</strong> &copy; 2025 Hendrich
+        </div>
+      </footer>
     </div>
   );
 }
