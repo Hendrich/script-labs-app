@@ -6,12 +6,19 @@ import "./styles/labs.css";
 import { useAuth } from "./hooks/AuthContext.jsx";
 import AuthContainer from "./components/auth/AuthContainer.jsx";
 import Dashboard from "./Dashboard.jsx";
+import { apiService } from "./services/api.js";
 
 function App() {
   const { user, logout } = useAuth();
 
   console.log("� App component is rendering!");
   console.log("� Current user:", user);
+
+  // Inisialisasi CSRF token sekali saat mount
+  useEffect(() => {
+    apiService.loadCachedCsrf(); // coba muat cache dulu
+    apiService.initCsrf();
+  }, []);
 
   return (
     <div

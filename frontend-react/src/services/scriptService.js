@@ -1,4 +1,4 @@
-import { apiService } from "./api.js";
+import { apiService } from "./api.js"; // ApiService otomatis menambahkan X-CSRF-Token untuk state-changing methods
 import { API_CONFIG } from "../constants/config.js";
 
 export const scriptService = {

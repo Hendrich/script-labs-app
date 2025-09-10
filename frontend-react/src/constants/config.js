@@ -12,6 +12,7 @@ export const API_CONFIG = {
       UPDATE: "/api/labs",
       DELETE: "/api/labs",
     },
+    HEALTH: "/health", // digunakan untuk fetch awal CSRF token
   },
 };
 
