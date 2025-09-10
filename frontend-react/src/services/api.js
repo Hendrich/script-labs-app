@@ -11,6 +11,7 @@ class ApiService {
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
         ...options.headers,
       },
       // pastikan cookie (session / csrf) ikut terkirim
@@ -24,15 +25,26 @@ class ApiService {
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    // Tambahkan CSRF token untuk metode state-changing jika tersedia
+    // Tambahkan CSRF token untuk metode state-changing (lazy init jika belum ada)
     const method = (config.method || "GET").toUpperCase();
     const stateChanging = ["POST", "PUT", "PATCH", "DELETE"];
-    if (
-      stateChanging.includes(method) &&
-      this.csrfToken &&
-      !config.headers["X-CSRF-Token"]
-    ) {
-      config.headers["X-CSRF-Token"] = this.csrfToken;
+    if (stateChanging.includes(method)) {
+      if (!this.csrfToken) {
+        await this.initCsrf();
+      }
+      if (this.csrfToken && !config.headers["X-CSRF-Token"]) {
+        config.headers["X-CSRF-Token"] = this.csrfToken;
+      }
+    }
+
+    if (process.env.NODE_ENV !== "production") {
+      console.debug(
+        "[ApiService] Request =>",
+        method,
+        url,
+        "csrf?",
+        !!config.headers["X-CSRF-Token"]
+      );
     }
 
     let attemptedCsrfRefresh = false;
@@ -56,6 +68,9 @@ class ApiService {
         } catch (_) {
           /* ignore */
         }
+        if (process.env.NODE_ENV !== "production") {
+          console.debug("[ApiService] Updated CSRF token from header");
+        }
       }
 
       // Ambil token dari body jika backend kirim di JSON (fallback)
@@ -64,6 +79,9 @@ class ApiService {
         try {
           sessionStorage.setItem("csrfToken", this.csrfToken);
         } catch (_) {}
+        if (process.env.NODE_ENV !== "production") {
+          console.debug("[ApiService] Updated CSRF token from body");
+        }
       }
 
       if (!response.ok || data.success === false) {
@@ -81,6 +99,9 @@ class ApiService {
           // sisipkan ulang header kalau sudah dapat token
           if (stateChanging.includes(method) && this.csrfToken) {
             config.headers["X-CSRF-Token"] = this.csrfToken;
+          }
+          if (process.env.NODE_ENV !== "production") {
+            console.debug("[ApiService] Retrying request after CSRF refresh");
           }
           return doFetch();
         }
