@@ -13,6 +13,8 @@ class ApiService {
         "Content-Type": "application/json",
         ...options.headers,
       },
+  // pastikan cookie (session / csrf) ikut terkirim
+  credentials: options.credentials || 'include',
       ...options,
     };
 
@@ -33,9 +35,17 @@ class ApiService {
       config.headers["X-CSRF-Token"] = this.csrfToken;
     }
 
-    try {
+    let attemptedCsrfRefresh = false;
+
+    const doFetch = async () => {
       const response = await fetch(url, config);
-      const data = await response.json();
+      // Coba parse JSON aman (beberapa endpoint health bisa tidak ada body JSON)
+      let data;
+      try {
+        data = await response.clone().json();
+      } catch (_) {
+        data = {};
+      }
 
       // Jika server mengirim token baru (misal refresh/rotasi), perbarui cache
       const respCsrf = response.headers.get("X-CSRF-Token");
@@ -48,23 +58,32 @@ class ApiService {
         }
       }
 
-      if (!response.ok) {
-        // Handle API error response
-        const errorMessage =
-          data.error?.message ||
-          data.message ||
-          `HTTP error! status: ${response.status}`;
-        throw new Error(errorMessage);
+      // Ambil token dari body jika backend kirim di JSON (fallback)
+      if (!this.csrfToken && (data?.csrfToken || data?.data?.csrfToken)) {
+        this.csrfToken = data.csrfToken || data.data.csrfToken;
+        try { sessionStorage.setItem('csrfToken', this.csrfToken); } catch (_) {}
       }
 
-      // Check if API response indicates failure
-      if (data.success === false) {
-        const errorMessage =
-          data.error?.message || data.message || "API request failed";
+      if (!response.ok || data.success === false) {
+        const errorMessage = data.error?.message || data.message || `HTTP error! status: ${response.status}`;
+        const isCsrfError = /csrf/i.test(errorMessage || '') || (data.error?.code || '').includes('CSRF');
+        if (isCsrfError && !attemptedCsrfRefresh) {
+          attemptedCsrfRefresh = true;
+          // Refresh token & retry sekali
+            await this.initCsrf();
+            // sisipkan ulang header kalau sudah dapat token
+            if (stateChanging.includes(method) && this.csrfToken) {
+              config.headers['X-CSRF-Token'] = this.csrfToken;
+            }
+            return doFetch();
+        }
         throw new Error(errorMessage);
       }
-
       return data;
+    };
+
+    try {
+      return await doFetch();
     } catch (error) {
       console.error("API request failed:", error);
       throw error;
@@ -76,6 +95,7 @@ class ApiService {
     try {
       const response = await fetch(`${this.baseURL}${endpoint}`, {
         method: "GET",
+        credentials: 'include'
       });
       // ambil token dari header
       const token = response.headers.get("X-CSRF-Token");
@@ -88,6 +108,16 @@ class ApiService {
         }
         return token;
       }
+      // fallback baca body jika ada
+      try {
+        const body = await response.clone().json();
+        const bToken = body?.csrfToken || body?.data?.csrfToken;
+        if (bToken) {
+          this.csrfToken = bToken;
+          try { sessionStorage.setItem('csrfToken', bToken); } catch (_) {}
+          return bToken;
+        }
+      } catch (_) { /* ignore */ }
       return null;
     } catch (e) {
       console.warn("Gagal inisialisasi CSRF token", e);
