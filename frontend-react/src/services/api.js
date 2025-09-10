@@ -13,8 +13,8 @@ class ApiService {
         "Content-Type": "application/json",
         ...options.headers,
       },
-  // pastikan cookie (session / csrf) ikut terkirim
-  credentials: options.credentials || 'include',
+      // pastikan cookie (session / csrf) ikut terkirim
+      credentials: options.credentials || "include",
       ...options,
     };
 
@@ -61,21 +61,28 @@ class ApiService {
       // Ambil token dari body jika backend kirim di JSON (fallback)
       if (!this.csrfToken && (data?.csrfToken || data?.data?.csrfToken)) {
         this.csrfToken = data.csrfToken || data.data.csrfToken;
-        try { sessionStorage.setItem('csrfToken', this.csrfToken); } catch (_) {}
+        try {
+          sessionStorage.setItem("csrfToken", this.csrfToken);
+        } catch (_) {}
       }
 
       if (!response.ok || data.success === false) {
-        const errorMessage = data.error?.message || data.message || `HTTP error! status: ${response.status}`;
-        const isCsrfError = /csrf/i.test(errorMessage || '') || (data.error?.code || '').includes('CSRF');
+        const errorMessage =
+          data.error?.message ||
+          data.message ||
+          `HTTP error! status: ${response.status}`;
+        const isCsrfError =
+          /csrf/i.test(errorMessage || "") ||
+          (data.error?.code || "").includes("CSRF");
         if (isCsrfError && !attemptedCsrfRefresh) {
           attemptedCsrfRefresh = true;
           // Refresh token & retry sekali
-            await this.initCsrf();
-            // sisipkan ulang header kalau sudah dapat token
-            if (stateChanging.includes(method) && this.csrfToken) {
-              config.headers['X-CSRF-Token'] = this.csrfToken;
-            }
-            return doFetch();
+          await this.initCsrf();
+          // sisipkan ulang header kalau sudah dapat token
+          if (stateChanging.includes(method) && this.csrfToken) {
+            config.headers["X-CSRF-Token"] = this.csrfToken;
+          }
+          return doFetch();
         }
         throw new Error(errorMessage);
       }
@@ -95,7 +102,7 @@ class ApiService {
     try {
       const response = await fetch(`${this.baseURL}${endpoint}`, {
         method: "GET",
-        credentials: 'include'
+        credentials: "include",
       });
       // ambil token dari header
       const token = response.headers.get("X-CSRF-Token");
@@ -114,10 +121,14 @@ class ApiService {
         const bToken = body?.csrfToken || body?.data?.csrfToken;
         if (bToken) {
           this.csrfToken = bToken;
-          try { sessionStorage.setItem('csrfToken', bToken); } catch (_) {}
+          try {
+            sessionStorage.setItem("csrfToken", bToken);
+          } catch (_) {}
           return bToken;
         }
-      } catch (_) { /* ignore */ }
+      } catch (_) {
+        /* ignore */
+      }
       return null;
     } catch (e) {
       console.warn("Gagal inisialisasi CSRF token", e);
