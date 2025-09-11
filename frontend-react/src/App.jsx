@@ -10,8 +10,8 @@ import Dashboard from "./Dashboard.jsx";
 function App() {
   const { user, logout } = useAuth();
 
-  console.log("� App component is rendering!");
-  console.log("� Current user:", user);
+  // console.log("� App component is rendering!");
+  // console.log("� Current user:", user);
 
   // CSRF logic removed
 

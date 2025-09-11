@@ -5,7 +5,7 @@ import Register from "./Register.jsx";
 const AuthContainer = () => {
   const [activeTab, setActiveTab] = useState("login");
 
-  console.log("🔐 AuthContainer: Rendering with activeTab:", activeTab);
+  //console.log("🔐 AuthContainer: Rendering with activeTab:", activeTab);
 
   return (
     <section className="auth-section card">

@@ -116,12 +116,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    console.log("🚀 AuthProvider: Initializing auth state...");
+    //console.log("🚀 AuthProvider: Initializing auth state...");
     const currentUser = authService.getCurrentUser();
-    console.log(
-      "👤 AuthProvider: Current user from localStorage:",
-      currentUser
-    );
+    // console.log(
+    //   "👤 AuthProvider: Current user from localStorage:",
+    //   currentUser
+    // );
     setUser(currentUser);
     setLoading(false);
     updateActivity();
@@ -137,16 +137,16 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
-      console.log("🔄 AuthProvider: Attempting login for:", email);
+      //console.log("🔄 AuthProvider: Attempting login for:", email);
       const response = await authService.login(email, password);
-      console.log("✅ AuthProvider: Login response:", response);
+      //console.log("✅ AuthProvider: Login response:", response);
 
       if (response.user) {
-        console.log("👤 AuthProvider: Setting user state:", response.user);
+        //console.log("👤 AuthProvider: Setting user state:", response.user);
         setUser(response.user);
-        console.log(
-          "🔄 AuthProvider: User state updated, should trigger re-render"
-        );
+        //console.log(
+        //  "🔄 AuthProvider: User state updated, should trigger re-render"
+        //);
       } else {
         console.error("❌ AuthProvider: No user in response");
         throw new Error("Login failed: No user data received");
@@ -179,9 +179,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = (isAuto = false) => {
-    console.log(
-      "🚪 AuthProvider: Logging out..." + (isAuto ? " (auto idle)" : "")
-    );
+    // console.log(
+    //   "🚪 AuthProvider: Logging out..." + (isAuto ? " (auto idle)" : "")
+    // );
     authService.logout();
     setUser(null);
     if (isAuto) {
@@ -189,7 +189,7 @@ export const AuthProvider = ({ children }) => {
         sessionStorage.setItem("lastAutoLogout", String(Date.now()));
       } catch (_) {}
     }
-    console.log("👤 AuthProvider: User state cleared");
+    //console.log("👤 AuthProvider: User state cleared");
   };
 
   const value = {

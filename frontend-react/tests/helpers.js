@@ -142,7 +142,7 @@ export async function clearAllScripts(page) {
       await page.waitForTimeout(1000);
       count = await scriptCards.count();
     } catch (error) {
-      console.log("Error deleting script, breaking loop:", error);
+      //console.log("Error deleting script, breaking loop:", error);
       break;
     }
   }
