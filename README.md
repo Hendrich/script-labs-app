@@ -1,168 +1,162 @@
-# 🧪 Script Labs
+# Script Labs App
 
-> Platform modern untuk QA testing dan eksperimen skrip, dibangun menggunakan React + Vite
+Frontend React + Vite untuk demo QA automation. Project ini dibuat sebagai playground testing seperti mini e-commerce dan CRUD script management untuk portfolio QA.
 
-![Script Labs Demo](https://img.shields.io/badge/Status-Active-brightgreen) ![React](https://img.shields.io/badge/React-18.2.0-blue) ![Vite](https://img.shields.io/badge/Vite-4.0.0-646CFF)
+## Live Setup
 
-## ✨ Fitur Utama
+```text
+Frontend : https://labs.hendri.me
+Backend  : https://api-script-labs.hendri.me
+Backend repository: https://github.com/Hendrich/script-labs
+Database : PostgreSQL di Vultr
+Auth     : Supabase Auth untuk fase transisi
+```
 
-- 🔐 **Sistem Autentikasi** - Login & Register yang aman
-- 🧪 **Manajemen Script Labs** - Tambah, edit, hapus, dan lihat koleksi script testing
-- 🎨 **UI/UX Modern** - Interface yang clean dan responsif dengan tema labs
-- 🚀 **Performance Optimal** - Dibangun dengan Vite untuk loading yang cepat
-- 🧪 **Testing Ready** - Dilengkapi dengan Playwright untuk end-to-end testing
+## Fitur Utama
 
-## 🛠️ Tech Stack
+### Product Shop
 
-- **Frontend**: React 18.2.0
-- **Build Tool**: Vite 4.0.0
-- **Testing**: Playwright
-- **Styling**: CSS3 dengan custom components
-- **Deployment**: Vercel
+- Product catalog dengan tampilan e-commerce
+- Search product
+- Filter category
+- Add to cart
+- Update quantity
+- Remove item
+- Clear cart
+- Checkout form
+- Checkout success state
+- Cart disimpan di localStorage
 
-## 📋 Prerequisites
+### Script CRUD
 
-Pastikan Anda memiliki software berikut terinstall:
+- Tambah script testing
+- Edit script testing
+- Delete script testing
+- List script berdasarkan user login
+- Data Script CRUD tersimpan melalui backend API di Vultr
 
-- [Node.js](https://nodejs.org/) (versi 16 atau lebih baru)
-- [npm](https://www.npmjs.com/) atau [yarn](https://yarnpkg.com/)
-- Git
+## Tech Stack
 
-## 🚀 Instalasi & Setup
+- React 18
+- Vite
+- CSS custom components
+- Playwright
+- Vercel deployment
 
-### 1. Clone Repository
+## Setup Local Development
 
 ```bash
 git clone https://github.com/Hendrich/script-labs-app.git
-cd script-labs-app
-```
-
-### 2. Install Dependencies
-
-```bash
-cd frontend-react
+cd script-labs-app/frontend-react
 npm install
 ```
 
-### 3. Setup Environment Variables
-
-Buat file `.env` di dalam folder `frontend-react`:
+Buat file `.env` di folder `frontend-react`:
 
 ```env
-VITE_API_URL=http://localhost:5000
+VITE_API_URL=https://api-script-labs.hendri.me
 ```
 
-> **Note**: Sesuaikan URL API dengan backend server Anda
-
-## 🏃‍♂️ Cara Menjalankan
-
-### Development Mode
+Jalankan local development:
 
 ```bash
-cd frontend-react
 npm run dev
 ```
 
-Aplikasi akan berjalan di `http://localhost:5173`
+Aplikasi local berjalan di:
 
-### Production Build
+```text
+http://localhost:5173
+```
+
+## Production Build
 
 ```bash
-cd frontend-react
 npm run build
 npm run preview
 ```
 
-### Testing
+## Testing
 
 ```bash
-# Run all tests
+npx playwright install
 npm test
-
-# Run tests dengan UI
 npm run test:ui
-
-# Run tests dengan browser tampil
 npm run test:headed
-
-# Lihat test report
 npm run test:report
 ```
 
-## 📁 Struktur Proyek
+## Struktur Project
 
-```
+```text
 script-labs-app/
 ├── frontend-react/
 │   ├── src/
-│   │   ├── components/          # Komponen React
-│   │   │   ├── auth/           # Komponen autentikasi
-│   │   │   ├── labs/           # Komponen manajemen script labs
-│   │   │   └── common/         # Komponen umum
-│   │   ├── hooks/              # Custom React hooks
-│   │   ├── services/           # API services
-│   │   ├── styles/             # CSS files
-│   │   ├── constants/          # Konfigurasi & konstanta
-│   │   └── utils/              # Utility functions
-│   ├── tests/                  # Playwright tests
-│   ├── public/                 # Static assets
+│   │   ├── components/
+│   │   │   ├── auth/
+│   │   │   ├── labs/
+│   │   │   ├── shop/
+│   │   │   └── common/
+│   │   ├── data/
+│   │   │   └── products.js
+│   │   ├── hooks/
+│   │   ├── services/
+│   │   ├── styles/
+│   │   ├── constants/
+│   │   └── utils/
+│   ├── tests/
+│   ├── public/
 │   └── package.json
 └── README.md
 ```
 
-## 🎯 Penggunaan
+## Cara Menggunakan
 
-### 1. Registrasi/Login
+1. Buka `https://labs.hendri.me` atau local dev URL.
+2. Register atau login.
+3. Gunakan tab **Product Shop** untuk flow e-commerce testing.
+4. Gunakan tab **Script CRUD** untuk CRUD script testing.
 
-- Buka aplikasi di browser
-- Klik "Register" untuk membuat akun baru atau "Login" jika sudah punya akun
-- Masukkan email dan password
+## API yang Dipakai
 
-### 2. Manajemen Script Labs
-
-- **Tambah Script**: Klik tombol "Add Script" dan isi form
-- **Edit Script**: Klik tombol edit pada kartu script
-- **Hapus Script**: Klik tombol delete (akan ada konfirmasi)
-- **Lihat Detail**: Klik pada kartu script untuk melihat detail
-
-## 🧪 Testing
-
-Aplikasi ini menggunakan Playwright untuk end-to-end testing:
-
-```bash
-# install driver browser type terlebih dahulu
-npx playwright install
-# Test autentikasi
-npm test -- auth
-
-# Test manajemen script labs
-npm test -- labs
-
-# Test specific file
-npm test -- edit-lab.spec.js
+```text
+POST /api/auth/login
+POST /api/auth/register
+GET  /api/labs
+POST /api/labs
+PUT  /api/labs/:id
+DELETE /api/labs/:id
+GET  /health
 ```
 
-## 🚢 Deployment
+## Deployment
 
-Aplikasi ini sudah dikonfigurasi untuk deploy ke Vercel:
+Frontend dideploy ke Vercel.
 
-1. Fork repository ini
-2. Connect ke Vercel account Anda
-3. Deploy otomatis akan berjalan setiap push ke main branch
+Environment variable production di Vercel:
 
-## 📝 API Endpoints
-
-Aplikasi ini mengharapkan backend API dengan endpoints berikut:
-
-```
-POST /api/auth/login          # Login user
-POST /api/auth/register       # Register user
-GET  /api/labs               # Get all script labs
-POST /api/labs               # Create new script lab
-PUT  /api/labs/:id           # Update script lab
-DELETE /api/labs/:id         # Delete script lab
+```env
+VITE_API_URL=https://api-script-labs.hendri.me
 ```
 
-### License
+## Catatan Arsitektur
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+- Product Shop saat ini frontend-only dengan static product data dan localStorage cart.
+- Script CRUD sudah memakai backend API di Vultr dan PostgreSQL Vultr.
+- Login/register masih memakai Supabase Auth untuk fase transisi.
+
+## Roadmap
+
+- [x] Deploy backend ke Vultr
+- [x] Gunakan PostgreSQL Vultr untuk Script CRUD
+- [x] Tambah Product Shop frontend
+- [x] Tambah cart dan checkout frontend-only
+- [ ] Tambah products API di backend
+- [ ] Tambah checkout dummy API
+- [ ] Ganti Supabase Auth ke local/dummy auth
+- [ ] Tambah reset test data endpoint
+- [ ] Tambah sample automation tests
+
+## License
+
+MIT License.
