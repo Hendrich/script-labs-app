@@ -3,62 +3,46 @@
 
 /* ===== CSS VARIABLES & ROOT STYLES ===== */
 :root {
-  /* Colors - Script Labs Theme */
-  --primary-color: #3b82f6; /* Blue for technical/lab theme */
-  --secondary-color: #10b981; /* Green for success/testing */
-  --accent-color: #f59e0b; /* Amber for highlights */
+  --primary-color: #3b82f6;
+  --secondary-color: #10b981;
+  --accent-color: #f59e0b;
   --success-color: #22c55e;
   --error-color: #ef4444;
   --warning-color: #f59e0b;
   --info-color: #06b6d4;
 
-  /* Backgrounds - Dark theme for labs */
-  --background-primary: #0f172a; /* Dark slate */
-  --background-secondary: #1e293b; /* Slightly lighter */
-  --background-tertiary: #334155; /* Card backgrounds */
-  --background-accent: #0f766e; /* Teal accent */
+  --background-primary: #0f172a;
+  --background-secondary: #1e293b;
+  --background-tertiary: #334155;
+  --background-accent: #0f766e;
 
-  /* Text Colors - High contrast for readability */
-  --text-primary: #f8fafc; /* Almost white */
-  --text-secondary: #e2e8f0; /* Light gray */
-  --text-muted: #94a3b8; /* Muted gray */
-  --text-light: #64748b; /* Light muted */
+  --text-primary: #f8fafc;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-light: #64748b;
 
-  /* Border Colors */
   --border-color: #475569;
   --border-light: #64748b;
   --border-dark: #334155;
 
-  /* Gradients - Tech/Lab themed */
   --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   --secondary-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
   --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
   --success-gradient: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-  --labs-gradient: linear-gradient(
-    135deg,
-    #6366f1 0%,
-    #3b82f6 50%,
-    #06b6d4 100%
-  );
+  --labs-gradient: linear-gradient(135deg, #6366f1 0%, #3b82f6 50%, #06b6d4 100%);
 
-  /* Border Radius */
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
 
-  /* Shadows - More pronounced for dark theme */
   --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
-    0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3),
-    0 4px 6px -2px rgba(0, 0, 0, 0.2);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3),
-    0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
   --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.3);
 
-  /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
@@ -66,12 +50,9 @@
   --spacing-xl: 2rem;
   --spacing-2xl: 3rem;
 
-  /* Typography - Modern tech fonts like SauceLabs */
-  --font-family-primary: "Inter", "SF Pro Display", -apple-system,
-    BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
-  --font-family-mono: "JetBrains Mono", "Fira Code", "Source Code Pro",
-    "Consolas", monospace;
-  --font-family-script: "Poppins", "Inter", sans-serif; /* Script-like modern font */
+  --font-family-primary: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif;
+  --font-family-mono: "JetBrains Mono", "Fira Code", "Source Code Pro", "Consolas", monospace;
+  --font-family-script: "Poppins", "Inter", sans-serif;
 
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -82,7 +63,6 @@
   --font-size-3xl: 1.875rem;
   --font-size-4xl: 2.25rem;
 
-  /* Font weights */
   --font-weight-light: 300;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
@@ -90,13 +70,11 @@
   --font-weight-bold: 700;
   --font-weight-extrabold: 800;
 
-  /* Transitions */
   --transition-fast: all 0.15s ease;
   --transition-normal: all 0.3s ease;
   --transition-slow: all 0.5s ease;
 }
 
-/* Global Styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -108,6 +86,7 @@ html {
   line-height: 1.6;
   color: var(--text-primary);
   background: var(--background-primary);
+  scroll-behavior: smooth;
 }
 
 body {
@@ -116,41 +95,76 @@ body {
   min-height: 100vh;
 }
 
-/* Application Wrapper */
 .app-wrapper {
   min-height: 100vh;
-  background: var(--background-primary);
+  background:
+    radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 34rem),
+    radial-gradient(circle at top right, rgba(16, 185, 129, 0.12), transparent 32rem),
+    var(--background-primary);
+  color: var(--text-primary);
+  padding: 1.25rem;
 }
 
-/* Container */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* Header Styles */
-header {
-  background: var(--background-secondary);
+.app-header {
+  background: rgba(30, 41, 59, 0.82);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
-  border-bottom: 1px solid var(--border-color);
+  margin: 0 auto 2rem;
+  max-width: 1200px;
   padding: 1rem 0;
   position: sticky;
-  top: 0;
+  top: 1rem;
   z-index: 100;
+  backdrop-filter: blur(16px);
 }
 
+.app-header-content,
 header .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 }
 
 header h1 {
   color: var(--primary-color);
   font-size: var(--font-size-2xl);
-  font-weight: 700;
+  font-weight: 800;
   margin: 0;
+}
+
+.app-subtitle {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  margin-top: 0.15rem;
+}
+
+.app-main-card {
+  background: rgba(30, 41, 59, 0.82);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-xl);
+  min-height: 480px;
+  padding: 2rem;
+}
+
+.app-footer {
+  background: rgba(30, 41, 59, 0.82);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin: 2rem auto 0;
+  max-width: 1200px;
+  padding: 1rem;
+  text-align: center;
 }
 
 nav {
@@ -164,7 +178,6 @@ nav {
   font-weight: 500;
 }
 
-/* Button Styles */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -211,7 +224,6 @@ nav {
   box-shadow: var(--shadow-md);
 }
 
-/* Form Styles */
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -244,16 +256,24 @@ nav {
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
+  .app-wrapper {
+    padding: 0.75rem;
+  }
+
   .container {
     padding: 0 0.5rem;
   }
 
+  .app-header-content,
   header .container {
     flex-direction: column;
     gap: 1rem;
     text-align: center;
+  }
+
+  .app-main-card {
+    padding: 1rem;
   }
 
   nav {
