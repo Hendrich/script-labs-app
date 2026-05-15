@@ -1,0 +1,96 @@
+.testing-guide {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.testing-guide-hero,
+.selector-card,
+.guide-card {
+  background: var(--background-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.testing-guide-hero {
+  background:
+    radial-gradient(circle at top left, rgba(245, 158, 11, 0.2), transparent 35%),
+    var(--background-secondary);
+  padding: 2rem;
+}
+
+.guide-eyebrow {
+  color: var(--accent-color);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.testing-guide-hero h2 {
+  color: var(--text-primary);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.testing-guide-hero p,
+.selector-card p {
+  color: var(--text-secondary);
+}
+
+.guide-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.guide-card,
+.selector-card {
+  padding: 1.5rem;
+}
+
+.guide-card h3,
+.selector-card h3 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.guide-card ul {
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.guide-card li {
+  background: var(--background-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  padding: 0.8rem 1rem;
+}
+
+.guide-card li::before {
+  color: var(--success-color);
+  content: "✓";
+  font-weight: var(--font-weight-extrabold);
+  margin-right: 0.6rem;
+}
+
+.selector-card pre {
+  background: #020617;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  color: #93c5fd;
+  margin-top: 1rem;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .guide-grid {
+    grid-template-columns: 1fr;
+  }
+}
