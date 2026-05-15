@@ -47,6 +47,8 @@ function Shop() {
     0
   );
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+  const checkoutReady = cart.length > 0;
+  const detailsReady = Boolean(checkoutData.fullName && checkoutData.email);
 
   const saveCart = (nextCart) => {
     setCart(nextCart);
@@ -97,17 +99,28 @@ function Shop() {
 
   return (
     <section className="shop-section" data-testid="shop-section">
-      <div className="shop-hero">
+      <div className="shop-hero ecommerce-hero">
         <div>
           <p className="shop-eyebrow">QA Commerce Playground</p>
-          <h2>Practice automation on a realistic checkout flow</h2>
+          <h2>Shop automation assets and test a realistic checkout journey.</h2>
           <p>
-            Product catalog, cart, quantity changes, checkout validation, and
-            success state are ready for Cypress, Selenium, and Playwright demos.
+            Product browsing, cart behavior, checkout validation, and success
+            state are designed to be clear, repeatable, and automation-friendly.
           </p>
         </div>
-        <div className="shop-cart-pill" data-testid="cart-count">
-          🛒 {cartCount} item{cartCount === 1 ? "" : "s"}
+        <div className="shop-hero-metrics">
+          <div>
+            <strong>{products.length}</strong>
+            <span>Products</span>
+          </div>
+          <div>
+            <strong>{cartCount}</strong>
+            <span>Cart Items</span>
+          </div>
+          <div>
+            <strong>{formatRupiah(cartTotal)}</strong>
+            <span>Total</span>
+          </div>
         </div>
       </div>
 
@@ -135,21 +148,27 @@ function Shop() {
       <div className="shop-layout">
         <div className="product-grid">
           {filteredProducts.map((product) => (
-            <article className="product-card" key={product.id}>
-              <div className="product-icon" aria-hidden="true">
-                {product.icon}
+            <article className="product-card ecommerce-product-card" key={product.id}>
+              <div
+                className="product-image"
+                style={{ background: product.imageGradient }}
+                aria-hidden="true"
+              >
+                <span>{product.icon}</span>
               </div>
-              <div className="product-meta">
-                <span>{product.category}</span>
-                <strong>{product.badge}</strong>
+              <div className="product-body">
+                <div className="product-meta">
+                  <span>{product.category}</span>
+                  <strong>{product.badge}</strong>
+                </div>
+                <h3>{product.name}</h3>
+                <p>{product.description}</p>
+                <ul>
+                  {product.features.map((feature) => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
               </div>
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <ul>
-                {product.features.map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
               <div className="product-footer">
                 <span className="product-price">{formatRupiah(product.price)}</span>
                 <button
@@ -165,8 +184,23 @@ function Shop() {
         </div>
 
         <aside className="cart-panel" data-testid="cart-panel">
+          <div className="checkout-stepper" aria-label="Checkout progress">
+            <div className={`step ${cart.length ? "active" : ""}`}>
+              <span>1</span>
+              Cart
+            </div>
+            <div className={`step ${detailsReady ? "active" : ""}`}>
+              <span>2</span>
+              Details
+            </div>
+            <div className={`step ${orderComplete ? "active" : ""}`}>
+              <span>3</span>
+              Success
+            </div>
+          </div>
+
           <div className="cart-header">
-            <h3>Checkout Cart</h3>
+            <h3>Order Summary</h3>
             {cart.length > 0 && (
               <button className="link-button" onClick={clearCart}>
                 Clear
@@ -264,7 +298,7 @@ function Shop() {
             <button
               className="btn primary checkout-button"
               type="submit"
-              disabled={!cart.length}
+              disabled={!checkoutReady}
               data-testid="checkout-submit"
             >
               Complete Checkout
@@ -273,7 +307,7 @@ function Shop() {
 
           {orderComplete && (
             <div className="checkout-success" data-testid="checkout-success">
-              ✅ Checkout successful. This is a demo order for automation testing.
+              ✅ Checkout successful. This demo order is ready for automation validation.
             </div>
           )}
         </aside>
