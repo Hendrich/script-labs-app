@@ -4,6 +4,7 @@ import ScriptForm from "./components/labs/ScriptForm.jsx";
 import ScriptList from "./components/labs/ScriptList.jsx";
 import ErrorMessage from "./components/common/ErrorMessage.jsx";
 import Shop from "./components/shop/Shop.jsx";
+import TestingGuide from "./components/guide/TestingGuide.jsx";
 
 function Dashboard() {
   const [activeTab, setActiveTab] = useState("shop");
@@ -22,7 +23,6 @@ function Dashboard() {
       await createScript(scriptData);
     } catch (err) {
       console.error("Failed to create script:", err);
-      // Optionally, you could set a local error state here to display a message
     }
   };
 
@@ -31,7 +31,6 @@ function Dashboard() {
       await updateScript(id, scriptData);
     } catch (err) {
       console.error("Failed to update script:", err);
-      // Optionally, you could set a local error state here to display a message
     }
   };
 
@@ -40,7 +39,6 @@ function Dashboard() {
       await deleteScript(id);
     } catch (err) {
       console.error("Failed to delete script:", err);
-      // Optionally, you could set a local error state here to display a message
     }
   };
 
@@ -57,6 +55,15 @@ function Dashboard() {
           🛒 Product Shop
         </button>
         <button
+          className={`dashboard-tab ${activeTab === "guide" ? "active" : ""}`}
+          onClick={() => setActiveTab("guide")}
+          role="tab"
+          aria-selected={activeTab === "guide"}
+          type="button"
+        >
+          📘 Testing Guide
+        </button>
+        <button
           className={`dashboard-tab ${activeTab === "labs" ? "active" : ""}`}
           onClick={() => setActiveTab("labs")}
           role="tab"
@@ -67,9 +74,11 @@ function Dashboard() {
         </button>
       </div>
 
-      {activeTab === "shop" ? (
-        <Shop />
-      ) : (
+      {activeTab === "shop" && <Shop />}
+
+      {activeTab === "guide" && <TestingGuide />}
+
+      {activeTab === "labs" && (
         <div className="script-section">
           <ScriptForm onSubmit={handleCreateScript} loading={loading} />
 
