@@ -15,7 +15,11 @@
 
 .testing-guide-hero {
   background:
-    radial-gradient(circle at top left, rgba(245, 158, 11, 0.2), transparent 35%),
+    radial-gradient(
+      circle at top left,
+      rgba(245, 158, 11, 0.2),
+      transparent 35%
+    ),
     var(--background-secondary);
   padding: 2rem;
 }
@@ -91,6 +95,59 @@
 
 @media (max-width: 768px) {
   .guide-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.demo-users-guide-card {
+  background: var(--background-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: 1.5rem;
+}
+
+.demo-users-guide-card h3 {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.demo-users-guide-list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.demo-users-guide-list div {
+  background: rgba(51, 65, 85, 0.44);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: var(--radius-lg);
+  display: grid;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.demo-users-guide-list strong {
+  color: var(--text-primary);
+}
+
+.demo-users-guide-list code {
+  background: rgba(2, 6, 23, 0.42);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: var(--radius-md);
+  color: #dbeafe;
+  font-size: 0.78rem;
+  padding: 0.45rem 0.6rem;
+  word-break: break-all;
+}
+
+.demo-users-guide-list span {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+@media (max-width: 768px) {
+  .demo-users-guide-list {
     grid-template-columns: 1fr;
   }
 }

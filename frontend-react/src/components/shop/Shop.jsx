@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { products } from "../../data/products.js";
 import "./shop.css";
+import { useAuth } from "../../hooks/AuthContext.jsx";
 
 const formatRupiah = (value) =>
   new Intl.NumberFormat("id-ID", {
@@ -82,6 +83,9 @@ function ProductIcon({ type }) {
 }
 
 function Shop() {
+  const { user } = useAuth();
+  const isProblemUser = user?.status === "problem";
+  const [checkoutError, setCheckoutError] = useState("");
   const [cart, setCart] = useState(readInitialCart);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
@@ -95,20 +99,21 @@ function Shop() {
 
   const categories = useMemo(
     () => ["All", ...new Set(products.map((product) => product.category))],
-    []
+    [],
   );
 
   const filteredProducts = products.filter((product) => {
-    const matchesSearch = `${product.name} ${product.description} ${product.category}`
-      .toLowerCase()
-      .includes(search.toLowerCase());
+    const matchesSearch =
+      `${product.name} ${product.description} ${product.category}`
+        .toLowerCase()
+        .includes(search.toLowerCase());
     const matchesCategory = category === "All" || product.category === category;
     return matchesSearch && matchesCategory;
   });
 
   const cartTotal = cart.reduce(
     (total, item) => total + item.price * item.quantity,
-    0
+    0,
   );
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
   const checkoutReady = cart.length > 0;
@@ -126,7 +131,7 @@ function Shop() {
       ? cart.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
-            : item
+            : item,
         )
       : [...cart, { ...product, quantity: 1 }];
     saveCart(nextCart);
@@ -135,7 +140,7 @@ function Shop() {
   const updateQuantity = (productId, quantity) => {
     const nextQuantity = Math.max(1, quantity);
     const nextCart = cart.map((item) =>
-      item.id === productId ? { ...item, quantity: nextQuantity } : item
+      item.id === productId ? { ...item, quantity: nextQuantity } : item,
     );
     saveCart(nextCart);
   };
@@ -156,7 +161,18 @@ function Shop() {
 
   const handleCheckout = (event) => {
     event.preventDefault();
+    setCheckoutError("");
+
     if (!cart.length) return;
+
+    if (isProblemUser) {
+      setOrderComplete(false);
+      setCheckoutError(
+        "Checkout failed for problem_user. This is an intentional demo bug for automation testing.",
+      );
+      return;
+    }
+
     setOrderComplete(true);
     saveCart([]);
   };
@@ -212,7 +228,10 @@ function Shop() {
       <div className="shop-layout">
         <div className="product-grid">
           {filteredProducts.map((product) => (
-            <article className="product-card ecommerce-product-card" key={product.id}>
+            <article
+              className="product-card ecommerce-product-card"
+              key={product.id}
+            >
               <div className="product-image" aria-hidden="true">
                 <div className="product-mockup-card">
                   <ProductIcon type={product.iconType} />
@@ -234,7 +253,9 @@ function Shop() {
                 </ul>
               </div>
               <div className="product-footer">
-                <span className="product-price">{formatRupiah(product.price)}</span>
+                <span className="product-price">
+                  {formatRupiah(product.price)}
+                </span>
                 <button
                   className="btn primary"
                   onClick={() => addToCart(product)}
@@ -275,7 +296,9 @@ function Shop() {
           {cart.length === 0 ? (
             <div className="empty-cart">
               <span className="empty-cart-icon">Cart</span>
-              <p>Your cart is empty. Add a product to start checkout testing.</p>
+              <p>
+                Your cart is empty. Add a product to start checkout testing.
+              </p>
             </div>
           ) : (
             <div className="cart-items">
@@ -367,11 +390,27 @@ function Shop() {
             >
               Complete Checkout
             </button>
+            {isProblemUser && (
+              <div
+                className="problem-user-banner"
+                data-testid="problem-user-banner"
+              >
+                Problem user mode: checkout is intentionally blocked for
+                negative testing.
+              </div>
+            )}
           </form>
+
+          {checkoutError && (
+            <div className="checkout-error" data-testid="checkout-error">
+              {checkoutError}
+            </div>
+          )}
 
           {orderComplete && (
             <div className="checkout-success" data-testid="checkout-success">
-              Checkout successful. This demo order is ready for automation validation.
+              Checkout successful. This demo order is ready for automation
+              validation.
             </div>
           )}
         </aside>

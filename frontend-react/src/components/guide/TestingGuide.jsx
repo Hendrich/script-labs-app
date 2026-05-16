@@ -66,10 +66,44 @@ function TestingGuide() {
         ))}
       </div>
 
+      <div className="demo-users-guide-card">
+        <h3>Demo Users for Testing</h3>
+        <div className="demo-users-guide-list">
+          <div>
+            <strong>Standard User</strong>
+            <code>standard_user@example.com</code>
+            <code>script_sauce</code>
+            <span>Expected: login success, checkout success.</span>
+          </div>
+
+          <div>
+            <strong>Admin</strong>
+            <code>admin@example.com</code>
+            <code>admin123</code>
+            <span>Expected: login success with admin role.</span>
+          </div>
+
+          <div>
+            <strong>Locked User</strong>
+            <code>locked_user@example.com</code>
+            <code>script_sauce</code>
+            <span>Expected: login failed with USER_LOCKED.</span>
+          </div>
+
+          <div>
+            <strong>Problem User</strong>
+            <code>problem_user@example.com</code>
+            <code>script_sauce</code>
+            <span>Expected: login success, checkout failed intentionally.</span>
+          </div>
+        </div>
+      </div>
+
       <div className="selector-card">
         <h3>Recommended Automation Selectors</h3>
         <p>
-          Product Shop sudah menyediakan beberapa selector stabil untuk automation.
+          Product Shop sudah menyediakan beberapa selector stabil untuk
+          automation.
         </p>
         <pre>{`[data-testid="product-search"]
 [data-testid="category-filter"]

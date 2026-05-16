@@ -2,6 +2,20 @@ import React, { useState } from "react";
 import Login from "./Login.jsx";
 import Register from "./Register.jsx";
 
+const demoAccounts = [
+  {
+    label: "Standard User",
+    email: "standard_user@example.com",
+    password: "script_sauce",
+    note: "Normal login flow",
+  },
+  {
+    label: "Admin",
+    email: "admin@example.com",
+    password: "admin123",
+    note: "Admin role scenario",
+  },
+];
 const AuthContainer = () => {
   const [activeTab, setActiveTab] = useState("login");
 
@@ -29,7 +43,7 @@ const AuthContainer = () => {
             <span className="tab-icon">👤</span>
             <span>Sign In</span>
           </button>
-          <button
+          {/* <button
             className={`tab-button ${activeTab === "register" ? "active" : ""}`}
             onClick={() => setActiveTab("register")}
             aria-selected={activeTab === "register"}
@@ -37,7 +51,7 @@ const AuthContainer = () => {
           >
             <span className="tab-icon">✨</span>
             <span>Sign Up</span>
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -45,7 +59,35 @@ const AuthContainer = () => {
         <div className={`auth-forms ${activeTab}`}>
           <div className="form-container">
             {activeTab === "login" ? (
-              <Login />
+              <>
+                <Login />
+
+                <div className="demo-accounts-card">
+                  <div className="demo-accounts-header">
+                    <div>
+                      <span className="demo-label">Demo Accounts</span>
+                      <h3>Use these accounts for testing</h3>
+                    </div>
+                    <span className="demo-badge">QA Ready</span>
+                  </div>
+
+                  <div className="demo-accounts-list">
+                    {demoAccounts.map((account) => (
+                      <div className="demo-account-item" key={account.email}>
+                        <div className="demo-account-main">
+                          <strong>{account.label}</strong>
+                          <span>{account.note}</span>
+                        </div>
+
+                        <div className="demo-credentials">
+                          <code>{account.email}</code>
+                          <code>{account.password}</code>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
             ) : (
               <Register onSuccess={() => setActiveTab("login")} />
             )}
