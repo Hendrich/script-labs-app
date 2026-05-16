@@ -17,6 +17,70 @@ const readInitialCart = () => {
   }
 };
 
+const iconPaths = {
+  lock: (
+    <>
+      <rect x="7" y="10" width="10" height="8" rx="2" />
+      <path d="M9 10V8a3 3 0 0 1 6 0v2" />
+    </>
+  ),
+  cart: (
+    <>
+      <path d="M6 6h15l-2 8H8L6 3H3" />
+      <circle cx="9" cy="20" r="1.5" />
+      <circle cx="18" cy="20" r="1.5" />
+    </>
+  ),
+  layers: (
+    <>
+      <path d="m12 3 8 4-8 4-8-4 8-4Z" />
+      <path d="m4 12 8 4 8-4" />
+      <path d="m4 17 8 4 8-4" />
+    </>
+  ),
+  api: (
+    <>
+      <path d="M8 9 4 12l4 3" />
+      <path d="m16 9 4 3-4 3" />
+      <path d="m14 5-4 14" />
+    </>
+  ),
+  document: (
+    <>
+      <path d="M7 3h7l4 4v14H7z" />
+      <path d="M14 3v5h5" />
+      <path d="M9 13h6" />
+      <path d="M9 17h6" />
+    </>
+  ),
+  checklist: (
+    <>
+      <path d="M8 7h10" />
+      <path d="M8 12h10" />
+      <path d="M8 17h10" />
+      <path d="m4 7 .8.8L6.5 6" />
+      <path d="m4 12 .8.8 1.7-1.8" />
+      <path d="m4 17 .8.8 1.7-1.8" />
+    </>
+  ),
+};
+
+function ProductIcon({ type }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="product-svg-icon">
+      <g
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      >
+        {iconPaths[type] || iconPaths.layers}
+      </g>
+    </svg>
+  );
+}
+
 function Shop() {
   const [cart, setCart] = useState(readInitialCart);
   const [search, setSearch] = useState("");
@@ -149,12 +213,12 @@ function Shop() {
         <div className="product-grid">
           {filteredProducts.map((product) => (
             <article className="product-card ecommerce-product-card" key={product.id}>
-              <div
-                className="product-image"
-                style={{ background: product.imageGradient }}
-                aria-hidden="true"
-              >
-                <span>{product.icon}</span>
+              <div className="product-image" aria-hidden="true">
+                <div className="product-mockup-card">
+                  <ProductIcon type={product.iconType} />
+                  <span className="mockup-line wide" />
+                  <span className="mockup-line" />
+                </div>
               </div>
               <div className="product-body">
                 <div className="product-meta">
@@ -210,7 +274,7 @@ function Shop() {
 
           {cart.length === 0 ? (
             <div className="empty-cart">
-              <span>🧺</span>
+              <span className="empty-cart-icon">Cart</span>
               <p>Your cart is empty. Add a product to start checkout testing.</p>
             </div>
           ) : (
@@ -307,7 +371,7 @@ function Shop() {
 
           {orderComplete && (
             <div className="checkout-success" data-testid="checkout-success">
-              ✅ Checkout successful. This demo order is ready for automation validation.
+              Checkout successful. This demo order is ready for automation validation.
             </div>
           )}
         </aside>
